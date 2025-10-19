@@ -78,12 +78,7 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 			(CASE WHEN $5=true THEN ms.open_participation=true ELSE true END) AND
 			(CASE WHEN $6=true THEN g.host_pid <> 0 ELSE true END) AND
 			(CASE WHEN $7=true THEN ms.user_password_enabled=false ELSE true END) AND
-			(CASE WHEN $8=true THEN ms.system_password_enabled=false ELSE true END) AND
-			g.owner_pid <> ALL($9) AND
-			NOT EXISTS (
-				SELECT 1 FROM matchmaking.block_lists bl 
-				WHERE bl.user_pid = g.owner_pid AND bl.blocked_pid = $10
-			)`
+			(CASE WHEN $8=true THEN ms.system_password_enabled=false ELSE true END)`
 
 		var valid bool = true
 		for i, attrib := range searchCriteria.Attribs {
@@ -307,8 +302,6 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 			searchCriteria.ExcludeNonHostPID,
 			searchCriteria.ExcludeUserPasswordSet,
 			searchCriteria.ExcludeSystemPasswordSet,
-			pq.Array(blockList),
-			uint64(connection.PID()),
 		)
 		if err != nil {
 			common_globals.Logger.Critical(err.Error())
