@@ -6,7 +6,7 @@ import (
 	_ "github.com/PretendoNetwork/nex-protocols-go/v2"
 	ticket_granting "github.com/PretendoNetwork/nex-protocols-go/v2/ticket-granting"
 
-	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
 )
 
 type CommonProtocol struct {

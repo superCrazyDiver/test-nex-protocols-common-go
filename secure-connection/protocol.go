@@ -4,7 +4,7 @@ import (
 	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/nex-go/v2/types"
 	_ "github.com/PretendoNetwork/nex-protocols-go/v2"
-	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
 	secure_connection "github.com/PretendoNetwork/nex-protocols-go/v2/secure-connection"
 )
 

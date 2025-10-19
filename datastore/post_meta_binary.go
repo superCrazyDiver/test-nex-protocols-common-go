@@ -2,7 +2,7 @@ package datastore
 
 import (
 	"github.com/PretendoNetwork/nex-go/v2"
-	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
 	datastore "github.com/PretendoNetwork/nex-protocols-go/v2/datastore"
 	datastore_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/types"
 )

@@ -2,8 +2,8 @@ package matchmake_extension
 
 import (
 	"github.com/PretendoNetwork/nex-go/v2"
-	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
-	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/matchmake-extension/database"
+	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
+	"github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension/database"
 	"github.com/PretendoNetwork/nex-protocols-go/v2/match-making/constants"
 	match_making_types "github.com/PretendoNetwork/nex-protocols-go/v2/match-making/types"
 	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"

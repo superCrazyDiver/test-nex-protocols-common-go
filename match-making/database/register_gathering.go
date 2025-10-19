@@ -3,8 +3,8 @@ package database
 import (
 	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/nex-go/v2/types"
-	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
-	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/match-making/tracking"
+	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
+	"github.com/PretendoNetwork/nex-protocols-common-go/v2/match-making/tracking"
 	match_making_types "github.com/PretendoNetwork/nex-protocols-go/v2/match-making/types"
 )
 

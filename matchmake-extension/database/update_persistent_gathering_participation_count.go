@@ -3,7 +3,7 @@ package database
 import (
 	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/nex-go/v2/types"
-	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
 )
 
 // UpdatePersistentGatheringParticipationCount updates the participation count of a user in a persistent gathering. Returns the participation count
