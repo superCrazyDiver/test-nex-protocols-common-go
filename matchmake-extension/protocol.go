@@ -44,6 +44,7 @@ type CommonProtocol struct {
 	OnAfterGetlstFriendNotificationData            func(packet nex.PacketInterface, lstTypes types.List[types.UInt32])
 	OnAfterAddToBlockList                          func(packet nex.PacketInterface, lstPrincipalID types.List[types.PID])
 	OnAfterRemoveFromBlockList                     func(packet nex.PacketInterface, lstPrincipalID types.List[types.PID])
+	OnAfterGetMyBlockList                          func(packet nex.PacketInterface)
 }
 
 // SetDatabase defines the matchmaking manager to be used by the common protocol
@@ -208,6 +209,7 @@ func NewCommonProtocol(protocol matchmake_extension.Interface) *CommonProtocol {
 	protocol.SetHandlerGetlstFriendNotificationData(commonProtocol.getlstFriendNotificationData)
 	protocol.SetHandlerAddToBlockList(commonProtocol.addToBlockList)
 	protocol.SetHandlerRemoveFromBlockList(commonProtocol.removeFromBlockList)
+	protocol.SetHandlerGetMyBlockList(commonProtocol.getMyBlockList)
 
 	endpoint.OnConnectionEnded(func(connection *nex.PRUDPConnection) {
 		commonProtocol.manager.Mutex.Lock()
