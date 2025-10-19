@@ -6,8 +6,8 @@ import (
 	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"
 	notifications "github.com/PretendoNetwork/nex-protocols-go/v2/notifications"
 	notifications_types "github.com/PretendoNetwork/nex-protocols-go/v2/notifications/types"
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
-	"github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension/database"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/matchmake-extension/database"
 )
 
 func (commonProtocol *CommonProtocol) getlstFriendNotificationData(err error, packet nex.PacketInterface, callID uint32, lstTypes types.List[types.UInt32]) (*nex.RMCMessage, *nex.Error) {

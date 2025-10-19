@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/PretendoNetwork/nex-go/v2"
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
 	notifications_types "github.com/PretendoNetwork/nex-protocols-go/v2/notifications/types"
 )
 

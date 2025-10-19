@@ -4,8 +4,8 @@ import (
 	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/nex-go/v2/types"
 	match_making_types "github.com/PretendoNetwork/nex-protocols-go/v2/match-making/types"
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
-	"github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension/database"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/matchmake-extension/database"
 	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"
 )
 

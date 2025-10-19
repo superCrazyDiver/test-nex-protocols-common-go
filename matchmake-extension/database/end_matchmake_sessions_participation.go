@@ -2,8 +2,8 @@ package database
 
 import (
 	"github.com/PretendoNetwork/nex-go/v2"
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
-	"github.com/PretendoNetwork/nex-protocols-common-go/v2/match-making/database"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/match-making/database"
 )
 
 // EndMatchmakeSessionsParticipation ends participation on all matchmake sessions

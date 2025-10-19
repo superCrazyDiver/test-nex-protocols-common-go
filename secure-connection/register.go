@@ -8,7 +8,7 @@ import (
 	"github.com/PretendoNetwork/nex-go/v2/types"
 	secure_connection "github.com/PretendoNetwork/nex-protocols-go/v2/secure-connection"
 
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
 )
 
 func (commonProtocol *CommonProtocol) register(err error, packet nex.PacketInterface, callID uint32, vecMyURLs types.List[types.StationURL]) (*nex.RMCMessage, *nex.Error) {

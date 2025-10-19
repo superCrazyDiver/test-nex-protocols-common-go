@@ -6,8 +6,8 @@ import (
 	match_making_types "github.com/PretendoNetwork/nex-protocols-go/v2/match-making/types"
 	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"
 
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
-	"github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension/database"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/matchmake-extension/database"
 )
 
 type CommonProtocol struct {

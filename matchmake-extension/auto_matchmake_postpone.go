@@ -3,10 +3,10 @@ package matchmake_extension
 import (
 	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/nex-go/v2/types"
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
 	match_making_types "github.com/PretendoNetwork/nex-protocols-go/v2/match-making/types"
 	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"
-	database "github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension/database"
+	database "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/matchmake-extension/database"
 )
 
 func (commonProtocol *CommonProtocol) autoMatchmakePostpone(err error, packet nex.PacketInterface, callID uint32, anyGathering match_making_types.GatheringHolder, message types.String) (*nex.RMCMessage, *nex.Error) {

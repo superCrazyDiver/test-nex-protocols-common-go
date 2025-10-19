@@ -5,9 +5,9 @@ import (
 
 	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/nex-go/v2/types"
-	common_globals "github.com/PretendoNetwork/nex-protocols-common-go/v2/globals"
-	"github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension/database"
-	"github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension/tracking"
+	common_globals "github.com/superCrazyDiver/test-nex-protocols-common-go/v2/globals"
+	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/matchmake-extension/database"
+	"github.com/superCrazyDiver/test-nex-protocols-common-go/v2/matchmake-extension/tracking"
 	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"
 	notifications "github.com/PretendoNetwork/nex-protocols-go/v2/notifications"
 	notifications_types "github.com/PretendoNetwork/nex-protocols-go/v2/notifications/types"
