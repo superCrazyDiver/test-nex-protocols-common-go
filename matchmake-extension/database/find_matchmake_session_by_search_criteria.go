@@ -26,6 +26,27 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 		friendList = manager.GetUserFriendPIDs(uint32(connection.PID()))
 	}
 
+	// --- Blocklist Fetching Logic ---
+	// Fetch the user's own blocklist (people the user has blocked)
+	myBlockList, nexErr := GetBlockList(manager, connection.PID())
+	if nexErr != nil {
+		common_globals.Logger.Errorf("[DB DEBUG] 自分のブロックリストの取得に失敗しました PID: %d, Error: %s", connection.PID(), nexErr.Error())
+		return nil, nexErr
+	}
+	common_globals.Logger.Infof("[DB DEBUG] PID %d のブロックリスト: %v", connection.PID(), myBlockList)
+
+	// Fetch the list of users who have blocked this user
+	blockedByList, nexErr := GetBlockList(manager, connection.PID())
+	if nexErr != nil {
+		common_globals.Logger.Errorf("[DB DEBUG] 自分をブロックしているユーザーリストの取得に失敗しました PID: %d, Error: %s", connection.PID(), nexErr.Error())
+		return nil, nexErr
+	}
+	common_globals.Logger.Infof("[DB DEBUG] PID %d をブロックしているユーザー: %v", connection.PID(), blockedByList)
+
+	// Combine both lists into a single list of PIDs to exclude
+	exclusionList := append(myBlockList, blockedByList...)
+	// --- End Blocklist Logic ---
+
 	if resultRange.Offset == math.MaxUint32 {
 		resultRange.Offset = 0
 	}
@@ -71,6 +92,16 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 			(CASE WHEN $6=true THEN g.host_pid <> 0 ELSE true END) AND
 			(CASE WHEN $7=true THEN ms.user_password_enabled=false ELSE true END) AND
 			(CASE WHEN $8=true THEN ms.system_password_enabled=false ELSE true END)`
+
+		// --- Corrected Blocklist Filtering ---
+		if len(exclusionList) > 0 {
+			var exclusionPlaceholders []string
+			for i := range exclusionList {
+				exclusionPlaceholders = append(exclusionPlaceholders, fmt.Sprintf("$%d", 9+i))
+			}
+			searchStatement += fmt.Sprintf(" AND g.owner_pid NOT IN (%s)", strings.Join(exclusionPlaceholders, ","))
+		}
+		// --- End Correction ---
 
 		var valid bool = true
 		for i, attrib := range searchCriteria.Attribs {
@@ -285,7 +316,7 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 			searchStatement += fmt.Sprintf(` LIMIT %d OFFSET %d`, uint32(resultRange.Length) - uint32(len(resultMatchmakeSessions)), uint32(resultRange.Offset))
 		}
 
-		rows, err := manager.Database.Query(searchStatement,
+		args := []interface{}{
 			searchCriteria.ReferGID,
 			searchCriteria.CodeWord,
 			len(searchCriteria.Attribs),
@@ -294,7 +325,15 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 			searchCriteria.ExcludeNonHostPID,
 			searchCriteria.ExcludeUserPasswordSet,
 			searchCriteria.ExcludeSystemPasswordSet,
-		)
+		}
+
+		for _, pid := range exclusionList {
+			args = append(args, pid)
+		}
+
+		common_globals.Logger.Infof("[DB DEBUG] Executing Query: %s\nWith Args: %v", searchStatement, args)
+
+		rows, err := manager.Database.Query(searchStatement, args...)
 		if err != nil {
 			common_globals.Logger.Critical(err.Error())
 			continue
