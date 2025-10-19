@@ -13,6 +13,7 @@ import (
 	"github.com/PretendoNetwork/nex-protocols-go/v2/match-making/constants"
 	match_making_types "github.com/PretendoNetwork/nex-protocols-go/v2/match-making/types"
 	pqextended "github.com/PretendoNetwork/pq-extended"
+	"github.com/lib/pq"
 )
 
 // FindMatchmakeSessionBySearchCriteria finds matchmake sessions with the given search criterias
@@ -24,6 +25,13 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 	var friendList []uint32
 	if manager.GetUserFriendPIDs != nil {
 		friendList = manager.GetUserFriendPIDs(uint32(connection.PID()))
+	}
+
+	blockList, nexError := GetBlockList(manager, connection.PID())
+	if nexError != nil {
+		// Log the error but don't fail the search; just proceed with an empty blocklist.
+		common_globals.Logger.Error(nexError.Error())
+		blockList = []uint64{}
 	}
 
 	if resultRange.Offset == math.MaxUint32 {
@@ -70,7 +78,12 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 			(CASE WHEN $5=true THEN ms.open_participation=true ELSE true END) AND
 			(CASE WHEN $6=true THEN g.host_pid <> 0 ELSE true END) AND
 			(CASE WHEN $7=true THEN ms.user_password_enabled=false ELSE true END) AND
-			(CASE WHEN $8=true THEN ms.system_password_enabled=false ELSE true END)`
+			(CASE WHEN $8=true THEN ms.system_password_enabled=false ELSE true END) AND
+			g.owner_pid <> ALL($9) AND
+			NOT EXISTS (
+				SELECT 1 FROM matchmaking.block_lists bl 
+				WHERE bl.user_pid = g.owner_pid AND bl.blocked_pid = $10
+			)`
 
 		var valid bool = true
 		for i, attrib := range searchCriteria.Attribs {
@@ -294,6 +307,8 @@ func FindMatchmakeSessionBySearchCriteria(manager *common_globals.MatchmakingMan
 			searchCriteria.ExcludeNonHostPID,
 			searchCriteria.ExcludeUserPasswordSet,
 			searchCriteria.ExcludeSystemPasswordSet,
+			pq.Array(blockList),
+			uint64(connection.PID()),
 		)
 		if err != nil {
 			common_globals.Logger.Critical(err.Error())
